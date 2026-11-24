@@ -27,6 +27,10 @@ OUTPUT_PATH = os.path.join(OUTPUT_DIR, "entry.txt")
 
 
 def main() -> None:
+    # Gate check: the brief requires exactly one word, 1-24 chars, not
+    # whitespace-only. Fail loudly here instead of writing an invalid entry.
+    assert 1 <= len(WORD) <= 24, f"word length {len(WORD)} outside 1-24 gate"
+    assert WORD.split() == [WORD], "entry must be a single word, no whitespace"
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     # Binary write: exactly the word, no trailing newline, so the file is
     # byte-identical to the word itself and cannot collide with a padded form.
